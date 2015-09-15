@@ -14,12 +14,7 @@ use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
     $results = DB::select('select town from towns');
-   // View::make('main', array('arrayInView' => $results));
-    //return $results;
-    return View::make('main')->with('name', 'Джеймс');
-
-
-    return view('main');
+    return View::make('main', array('array' => $results));
 });
 
 

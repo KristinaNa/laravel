@@ -9,14 +9,16 @@
         </form>
         <table border="1">
             <th>Страна</th>
-            <?php //foreach($arrayInView as $item):    ?>
-                <tr><td><a href="/weather/my/weather/<?//php echo $item->name ?>"><?php //echo $item->town ?> </td></tr>
-            <?php // endforeach ?>
+            <?php
+                $result = array();
+                foreach ($array as $key => $value) {
+                    $result[] = $value->town;
+                }
+               //print_r($result);
+                foreach($result as $value){
+                  echo "<tr><td><a href='#'>".$value."</a></td></tr>";
+                }
+            ?>
         </table>
-
-
-        Привет, <?php echo $name; ?>.
-
     </body>
-
 </html>
