@@ -16,7 +16,6 @@ class WeatherController extends Controller {
         //return view('main');
 
 
-
     }
 
     public function store(){
@@ -45,6 +44,7 @@ class WeatherController extends Controller {
         $town = new Town;
         $town->town = $name;
         $town->save();
+        ddslkds;
         return redirect()->action('WeatherController@index');
     }
 
