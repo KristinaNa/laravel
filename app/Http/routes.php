@@ -13,9 +13,13 @@
 use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
-    $results = DB::select('select town from towns');
-    return View::make('main', array('array' => $results));
+    //$results = DB::select('select town from towns');
+    //return View::make('main', array('array' => $results));
+    return view('main');
+
 });
+
+//Route::controller('weather', 'WeatherController');
 
 
 Route::resource('weather', 'WeatherController',

@@ -10,14 +10,12 @@
         <table border="1">
             <th>Страна</th>
             <?php
-                $result = array();
-                foreach ($array as $key => $value) {
-                    $result[] = $value->town;
-                }
-               //print_r($result);
-                foreach($result as $value){
-                  echo "<tr><td><a href='#'>".$value."</a></td></tr>";
-                }
+            $towns = DB::table('towns')->get();
+            foreach ($towns as $town) {
+                $array = (array)$town;
+                $town=$array['town'];
+                echo "<tr><td><a href='#'>".$town."</a></td></tr>";
+            }
             ?>
         </table>
     </body>
