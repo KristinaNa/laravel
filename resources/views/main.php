@@ -14,7 +14,7 @@
             foreach ($towns as $town) {
                 $array = (array)$town;
                 $town=$array['town'];
-                echo "<tr><td><a href='#'>".$town."</a></td></tr>";
+                echo "<tr><td><a href='/weather/show>".$town."</a></td></tr>";
             }
             ?>
         </table>
