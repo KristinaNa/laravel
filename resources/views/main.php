@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Weather</title>
+        <title>Main page</title>
     </head>
     <body>
         <form action="/weather" method="POST">
@@ -14,7 +14,7 @@
             foreach ($towns as $town) {
                 $array = (array)$town;
                 $town=$array['town'];
-                echo "<tr><td><a href='/weather/show>".$town."</a></td></tr>";
+                echo "<tr><td><a href='/weather/$town'</a>".$town."</td></tr>";
             }
             ?>
         </table>

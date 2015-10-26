@@ -34,6 +34,7 @@ class WeatherController extends Controller {
         }
         $town = new Town;
         $town->town = $name;
+        $town->id = $id;
         $town->save();
         for($i = 0; $i < sizeof($response['list']); $i++){
             $date=date("Y-m-d H:i:s",$response['list'][$i]['dt']);
@@ -43,7 +44,7 @@ class WeatherController extends Controller {
             $temp_max = round($temp_max - 273.15);
 
             $weather = new Weather;
-            $weather->town = $name;
+            $weather->town_id = $id;
             $weather->temp_min = $temp_min;
             $weather->temp_max = $temp_max;
             $weather->date = $date;
@@ -52,8 +53,11 @@ class WeatherController extends Controller {
         }
         return redirect()->action('WeatherController@index');
     }
-    public function show(){
-        echo 'peace';
+
+    public function show($town) {
+        return view('weather');
+        
+
     }
 
 
