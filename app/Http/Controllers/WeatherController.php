@@ -11,6 +11,8 @@ use App\Town;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Validator;
+use View;
+
 
 
 class WeatherController extends Controller {
@@ -55,9 +57,7 @@ class WeatherController extends Controller {
     }
 
     public function show($town) {
-        return view('weather');
-        
-
+       return View::make('weather', array('town' => $town));
     }
 
 

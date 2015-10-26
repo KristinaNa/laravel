@@ -13,7 +13,7 @@
             $towns = DB::table('towns')->get();
             foreach ($towns as $town) {
                 $array = (array)$town;
-                $town=$array['town'];
+                $town = $array['town'];
                 echo "<tr><td><a href='/weather/$town'</a>".$town."</td></tr>";
             }
             ?>

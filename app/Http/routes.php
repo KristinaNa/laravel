@@ -13,9 +13,18 @@
 use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
-   return view('main');
+   //return view('main');
 });
 
 Route::resource('weather', 'WeatherController',
         ['only' => ['index','show','store']]);
 
+/*
+Route::get('/', function()
+{
+  return View::make('hello');
+});
+
+
+Route::g*et('/', 'WeatherController@showWelcome');
+*/
