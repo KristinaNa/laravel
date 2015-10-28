@@ -13,7 +13,7 @@
 use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
-   //return view('main');
+   return view('main');
 });
 
 Route::resource('weather', 'WeatherController',

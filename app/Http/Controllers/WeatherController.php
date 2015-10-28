@@ -49,7 +49,7 @@ class WeatherController extends Controller {
             $weather->town_id = $id;
             $weather->temp_min = $temp_min;
             $weather->temp_max = $temp_max;
-            $weather->date = $date;
+            $weather->kuupaev = $date;
             $weather->save();
 
         }
