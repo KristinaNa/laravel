@@ -53,6 +53,7 @@ class WeatherController extends Controller {
             $weather->save();
 
         }
+
         return redirect()->action('WeatherController@index');
     }
 
