@@ -55,7 +55,7 @@ while ($current_rec = mysql_fetch_array($result));
 
         $weather_today = DB::table('weather')
             ->where('town_id', $town_id)
-            ->orwhereBetween('kuupaev', array($date_today,$date_today.'23:59:59'))
+            ->whereBetween('kuupaev', ['2015-11-02', '2015-11-02 23:59:59'])
             ->get();
   //  $weather_today = (array)$weather_today; // stdObject class ---> Array
 
