@@ -7,7 +7,10 @@
     </head>
     <body>
 
-    1. Запросы на погоду, переносишь в метод show и передаёшь их из контроллера в вью.
+
+
+    <?php
+ /*  1. Запросы на погоду, переносишь в метод show и передаёшь их из контроллера в вью.
     2. На тему красоты есть варианты следующие.
 
     Делаем ассоциативный массив, напимер weather
@@ -28,14 +31,23 @@
 
     как то так.
     Спрашивай вопросы
-    мне надо переварить
 
-    ок, если что пиши, я тут на связи.
-    спасибо
 
-    <?php
-        $d = (date("Y-m-d", strtotime("+0 day")));
-        $date_today = $d." 00:00:00";
+ $query = "SELECT * FROM tb_test";
+$result = mysql_query($query) or die("Couldn't execute query!");
+$current_rec = mysql_fetch_array($result) ;
+do
+$i = $current_rec['id'];
+$MyCar[$i]['name'] = $current_rec['carname'];
+$MyCar[$i]['voditel'] = $current_rec['drivername'];
+$MyCar[$i]['dr_test'] = $current_rec['flag_test'];
+while ($current_rec = mysql_fetch_array($result));
+
+
+ */
+
+
+        $date_today = (date("Y-m-d", strtotime("+0 day")));
 
         $town_id = DB::table('towns')->where('town', $town)->first();
         $town_id = $town_id->id;      //получить id города
@@ -43,19 +55,26 @@
 
         $weather_today = DB::table('weather')
             ->where('town_id', $town_id)
-            ->where('kuupaev','>',$date_today)
+            ->orwhereBetween('kuupaev', array($date_today,$date_today.'23:59:59'))
             ->get();
-        $weather_today = (array)$weather_today; // stdObject class ---> Array
-        foreach($weather_today as $w){
-            $array = (array)$w;    // stdObject class ---> Array
-            $temp_min = $array['temp_min'];
-            $temp_max = $array['temp_max'];
-            $date = $array['kuupaev'];
+  //  $weather_today = (array)$weather_today; // stdObject class ---> Array
+
+    $weather_today = json_decode(json_encode((array) $weather_today), true);
+    print_r($weather_today);
+ /*   $array = array("02.11.2015" => $weather_today
+    );
+print_r($array);*/
+       foreach($weather_today as $array){
+
+        //   $array = (array)$w;    // stdObject class ---> Array
+           $temp_min = $array['temp_min'];
+           $temp_max = $array['temp_max'];
+           $date = $array['kuupaev'];
 
 
 
-            echo "Date: ".$date."<br> Min:".$temp_min."<br> Max: ".$temp_max."<br><p>";
-        }
+           echo "Date: ".$date."<br> Min:".$temp_min."<br> Max: ".$temp_max."<br><p>";
+       }
 
 
 
