@@ -16,6 +16,8 @@ use View;
 
 
 class WeatherController extends Controller {
+    protected $layout = 'layouts.weather';
+
     public function index(){
         return view('main');
     }
@@ -58,7 +60,34 @@ class WeatherController extends Controller {
     }
 
     public function show($town) {
-       return View::make('weather', array('town' => $town));
+        $town_id = DB::table('towns')->where('town', $town)->first();
+        $town_id = $town_id->id;      //получить id города
+        $date_today = (date("Y-m-d", strtotime("+0 day")));
+        $date_tomorrow = (date("Y-m-d", strtotime("+1 day")));
+        $date_after_tomorrow = (date("Y-m-d", strtotime("+2 day")));
+        $weather_today = DB::table('weather')
+            ->where('town_id', $town_id)
+            ->whereBetween('kuupaev', [$date_today, $date_today.' 23:59:59'])
+            ->get();
+        $weather_tomorrow = DB::table('weather')
+            ->where('town_id', $town_id)
+            ->whereBetween('kuupaev', [$date_tomorrow, $date_tomorrow.' 23:59:59'])
+            ->get();
+        $weather_after_tomorrow = DB::table('weather')
+            ->where('town_id', $town_id)
+            ->whereBetween('kuupaev', [$date_after_tomorrow, $date_after_tomorrow.' 23:59:59'])
+            ->get();
+        $weather_today = json_decode(json_encode((array) $weather_today), true);
+        $weather_tomorrow = json_decode(json_encode((array) $weather_tomorrow), true);
+        $weather_after_tomorrow = json_decode(json_encode((array) $weather_after_tomorrow), true);
+        $array = array(
+            $date_today => $weather_today,
+            $date_tomorrow => $weather_tomorrow,
+            $date_after_tomorrow => $weather_after_tomorrow
+        );
+
+        return View::make('weather', array('town' => $town, 'array' => $array));
+
     }
 
 
