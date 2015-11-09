@@ -62,12 +62,14 @@ class WeatherController extends Controller {
     public function show($town) {
         $town_id = DB::table('towns')->where('town', $town)->first();
         $town_id = $town_id->id;      //получить id города
+
         $date_today = (date("Y-m-d", strtotime("+0 day")));
         $date_tomorrow = (date("Y-m-d", strtotime("+1 day")));
         $date_after_tomorrow = (date("Y-m-d", strtotime("+2 day")));
+
         $weather_today = DB::table('weather')
             ->where('town_id', $town_id)
-            ->whereBetween('kuupaev', [$date_today, $date_today.' 23:59:59'])
+            ->whereBetween('kuupaev', [$date_today.' 00:00:00', $date_today.' 23:59:59'])
             ->get();
         $weather_tomorrow = DB::table('weather')
             ->where('town_id', $town_id)
@@ -88,6 +90,9 @@ class WeatherController extends Controller {
 
         return View::make('weather', array('town' => $town, 'array' => $array));
 
+    }
+    public function arhive(){
+        echo "HELLO";
     }
 
 
