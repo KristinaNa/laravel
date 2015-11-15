@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Validator;
 use View;
+use Carbon\Carbon;
+
 
 
 
@@ -63,6 +65,27 @@ class WeatherController extends Controller {
         $town_id = DB::table('towns')->where('town', $town)->first();
         $town_id = $town_id->id;      //получить id города
 
+        $dates_array = DB::table('weather')
+            ->where('town_id', $town_id)
+            ->select(DB::raw('DATE(kuupaev) as date'))
+            ->groupBy('date')
+            ->get();
+        $dates_array = json_decode(json_encode((array) $dates_array), true);
+        foreach($dates_array as $i){
+            $weather = DB::table('weather')
+                ->where('town_id', $town_id)
+                ->whereBetween('kuupaev', [$i['date'].' 00:00:00', $i['date'].' 23:59:59'])
+                ->get();
+            $weather = json_decode(json_encode((array) $weather), true);
+
+            print_r($weather);
+            echo '<br/>';
+            echo '<br/>';
+        }
+
+
+
+/*
         $date_today = (date("Y-m-d", strtotime("+0 day")));
         $date_tomorrow = (date("Y-m-d", strtotime("+1 day")));
         $date_after_tomorrow = (date("Y-m-d", strtotime("+2 day")));
@@ -87,12 +110,9 @@ class WeatherController extends Controller {
             $date_tomorrow => $weather_tomorrow,
             $date_after_tomorrow => $weather_after_tomorrow
         );
-
+        print_r($array);
         return View::make('weather', array('town' => $town, 'array' => $array));
-
-    }
-    public function arhive(){
-        echo "HELLO";
+*/
     }
 
 
