@@ -2,7 +2,6 @@
     <head>
         <title>Weather</title>
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-
         <style>
             html, body {
                 height: 100%;
@@ -38,6 +37,7 @@
             <div class="content">
                 <div class="title">Sorry, no weather here :(</div>
             </div>
+            <br/><a href="{{$town}}/refresh">refresh</a>
         </div>
     </body>
 </html>

@@ -12,19 +12,28 @@
 */
 use Illuminate\Support\Facades\DB;
 
-Route::get('/', function () {
-   return view('main');
+
+
+Route::get('weather/{town}/refresh', 'WeatherController@refresh');
+
+Route::get('/', function()
+{
+    return view('main');
 });
 
 Route::resource('weather', 'WeatherController',
         ['only' => ['index','show','store']]);
 
 /*
-Route::get('/', function()
-{
-  return View::make('hello');
+ * Route::get('/', function () {
+    return 'Hello World';
+
+    // return view('main');
 });
+ *
+ *
 
 
-Route::g*et('/', 'WeatherController@showWelcome');
+
+Route::get('/', 'WeatherController@showWelcome');
 */
