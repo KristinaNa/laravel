@@ -18,11 +18,10 @@ use Carbon\Carbon;
 
 
 class WeatherController extends Controller {
-    protected $layout = 'layouts.weather';
-
     public function index(){
         return view('main');
     }
+
     public function store(Request $request){
         $city = $request->input('town');
         $response = json_decode(file_get_contents('http://api.openweathermap.org/data/2.5/forecast?q='.$city.'&mode=json&appid=f84ba1064b0ae65792326548686f361c'), true);
@@ -89,6 +88,7 @@ class WeatherController extends Controller {
         }
 
     }
+
     public function refresh($town) {
         $town_id = DB::table('towns')->where('town', $town)->first();
         $town_id = $town_id->id;      //получить id города
